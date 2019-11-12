@@ -48,9 +48,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   }
 
   @override
+  void dispose() {
+  controller.dispose();
+  super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.cyan.withOpacity(controller.value),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -71,6 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
+
                   ),
                 ),
               ],
