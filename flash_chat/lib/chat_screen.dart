@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = Firestore.instance;
+FirebaseUser loggedInUser;
 
 class ChatScreen extends StatefulWidget {
 
@@ -16,7 +17,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final msgController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
+
   String messageText;
 
   @override
@@ -137,11 +138,20 @@ class MessagesStream extends StatelessWidget {
           final messageText = message.data['text'];
           final messageSender = message.data['sender'];
 
+          final currentUser  = loggedInUser.email;
+
+          if(currentUser == messageSender){
+            //The message from a Logged In user.
+          }
+
           final messageBubble =
-              MessageBubble(text: messageText, sender: messageSender);
+              MessageBubble(
+                text: messageText,
+                sender: messageSender,
+                isMe: currentUser == messageSender,);
 
           messageBubbles.add(messageBubble);
-          // ignore: missing_return
+
         }
         return Expanded(
           child: ListView(
@@ -157,8 +167,9 @@ class MessagesStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   final String sender;
   final String text;
+  final bool isMe;
 
-  const MessageBubble({Key key, this.sender, this.text}) : super(key: key);
+  const MessageBubble({Key key, this.sender, this.text, this.isMe}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -173,12 +184,13 @@ class MessageBubble extends StatelessWidget {
           Material(
             elevation: 5,
             borderRadius: BorderRadius.only(topLeft: Radius.circular(30),bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
-            color: Colors.lightBlueAccent,
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
             child: Text(
               text,
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.white,
+                color: isMe ? Colors.white : Colors.black
+
               ),
             ),
           ),
