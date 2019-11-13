@@ -88,18 +88,21 @@ print(loggedInUser.email);
                }
 
                 final messages = snapshot.data.documents;
-                List<Text> messageWidgets = [];
+                List<MessageBubble> messageBubbles = [];
                 for(var message in messages){
                   final messageText = message.data['text'];
                   final messageSender = message.data['sender'];
 
-                  final messageWidget = Text('$messageText from $messageSender');
+                  final messageBubble =MessageBubble(text: messageText,sender: messageSender);
 
-                  messageWidgets.add(messageWidget);
+                  messageBubbles.add(messageBubble);
                 // ignore: missing_return
                 }
-                return Column(
-                children: messageWidgets,
+                return Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                  children: messageBubbles,
+                  ),
                 );
 
 
@@ -141,6 +144,24 @@ print(loggedInUser.email);
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class MessageBubble extends StatelessWidget {
+
+  final String sender;
+  final String text;
+
+  const MessageBubble({Key key, this.sender, this.text}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.lightBlueAccent,
+      child: Text(
+        '$text from $sender',
+        style: TextStyle(fontSize: 24),),
     );
   }
 }
