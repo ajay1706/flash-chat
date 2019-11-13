@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './components/button.dart';
 import './constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './chat_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration-screen';
@@ -9,7 +11,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-
+final _auth  = FirebaseAuth.instance;
 
   String email;
   String password;
@@ -61,9 +63,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       Button(
         text: 'Register',
         color: Colors.blueAccent,
-      onPressed: (){
-          print(email);
-          print(password);
+      onPressed: ()async{
+//          print(email);
+//          print(password);
+      try {
+        final newUser = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        if(newUser != null){
+          Navigator.pushNamed(context, ChatScreen.id);
+
+        }
+      }
+
+      catch (e){
+        print(e);
+      }
+
       },)
           ],
         ),
