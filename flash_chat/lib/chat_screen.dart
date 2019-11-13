@@ -51,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(message.data);
       }
     }
-    
+
   }
 
   @override
@@ -172,7 +172,7 @@ class MessageBubble extends StatelessWidget {
           ),
           Material(
             elevation: 5,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30),bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)),
             color: Colors.lightBlueAccent,
             child: Text(
               text,
