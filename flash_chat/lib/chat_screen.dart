@@ -42,6 +42,8 @@ print(loggedInUser.email);
               icon: Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -52,6 +54,8 @@ print(loggedInUser.email);
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+
+
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
