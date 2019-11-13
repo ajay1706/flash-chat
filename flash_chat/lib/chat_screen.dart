@@ -157,11 +157,29 @@ class MessageBubble extends StatelessWidget {
   const MessageBubble({Key key, this.sender, this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.lightBlueAccent,
-      child: Text(
-        '$text from $sender',
-        style: TextStyle(fontSize: 24),),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20),
+      child: Column(
+        children: <Widget>[
+          Text(sender,style: TextStyle(
+            fontSize: 12,
+            color: Colors.black54
+          ),),
+          Material(
+            elevation: 5,
+            borderRadius: BorderRadius.circular(30),
+
+            color: Colors.lightBlueAccent,
+            child: Text(
+              text,
+              style: TextStyle(
+                  fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
