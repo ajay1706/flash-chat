@@ -141,16 +141,18 @@ class MessagesStream extends StatelessWidget {
           final currentUser  = loggedInUser.email;
 
           if(currentUser == messageSender){
+            final messageBubble =
+            MessageBubble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,);
+            messageBubbles.add(messageBubble);
             //The message from a Logged In user.
           }
 
-          final messageBubble =
-              MessageBubble(
-                text: messageText,
-                sender: messageSender,
-                isMe: currentUser == messageSender,);
 
-          messageBubbles.add(messageBubble);
+
+
 
         }
         return Expanded(
@@ -174,7 +176,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment:isMe ?  CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
@@ -187,12 +189,15 @@ class MessageBubble extends StatelessWidget {
             borderRadius:isMe ?  BorderRadius.only(topLeft: Radius.circular(30),bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
                 : BorderRadius.only(topRight: Radius.circular(30),bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30)) ,
             color: isMe ? Colors.lightBlueAccent : Colors.white,
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 15,
-                color: isMe ? Colors.white : Colors.black54
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal:10.0,vertical: 5),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: isMe ? Colors.white : Colors.black54
 
+                ),
               ),
             ),
           ),
