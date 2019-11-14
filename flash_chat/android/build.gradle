@@ -17,6 +17,8 @@ allprojects {
         google()
         jcenter()
     }
+
+
 }
 
 rootProject.buildDir = '../build'
@@ -25,6 +27,7 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
+
 }
 
 task clean(type: Delete) {
